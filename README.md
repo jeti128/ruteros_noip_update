@@ -23,3 +23,6 @@ setup new Scheduler:
 
     On Evenet: /system script run your_script_name
   
+send mail req mail setting in ruter:
+
+    /toola mail
