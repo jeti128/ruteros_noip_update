@@ -8,7 +8,7 @@ setup
  
  1. pls copy noip.txt to ruter root
  2. copy /src/noip_clean.txt contetnt to new script (/systems script):
-    $ setup :
+    $ modify your info in script:
         user " no-ip user name  "
         password " no-ip password"
         hosts [:toarray (" host1 "," test.com ")]

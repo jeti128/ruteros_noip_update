@@ -3,7 +3,7 @@
 :local hosts [:toarray (" host1 "," test.com ")]
 :local inetinterface " pppoe-out / Ethernet1...10 "
 :local mailSend 2
-:local mailList [:toarray ("test@test.com","test2@test2.com")]
+:local mailList [:toarray ("","")]
 
 :local IP
 :local lastip
