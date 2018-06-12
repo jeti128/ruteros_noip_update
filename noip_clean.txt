@@ -1,36 +1,14 @@
-# jeti128 ruteros no-ip update script
-# v1.0
-# thx:
-# MikroTik: https://wiki.mikrotik.com/wiki/Dynamic_DNS_Update_Script_for_No-IP_DNS
-# for base way present
-#
-# script check your interface ip (if you use pppoe use pppoe interface or internet coming Ethernet port user port for interface) 
-# and not same for stored (noip.txt) update to noip
-# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-# pleas create the empy file in ruteros root pacth fil name: noip.txt
-# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-#
-# User setup
-# no-ip user name or e-mail
 :local user " no-ip user name  "
-# no-ip user password
 :local password " no-ip password"
-# no-ip host list
 :local hosts [:toarray (" host1 "," test.com ")]
-# your internat interface
 :local inetinterface " pppoe-out / Ethernet1...10 "
-# 1 send mail from update other not send mail
 :local mailSend 2
 :local mailList [:toarray ("","")]
 
-# Script variables
 :local IP
 :local lastip
-# chack interface oke
 :if ([/interface get $inetinterface value-name=running]) do={
-        # get internet address
         :set IP [/ip address get [find interface="$inetinterface" disabled=no] address]
-        # delet subnet
         :for i from=( [:len $IP] - 1) to=0 do={
                 :if ( [:pick $IP $i] = "/") do={ 
                         :set IP [:pick $IP 0 $i]
@@ -38,17 +16,14 @@
         }
         log info "Interface ip: $IP"
 
-        # if file exists
         :if ([:len [/file find name=noip.txt]] > 0) do={
             :set lastip [/file get noip.txt contents];
             :if ($lastip != $IP) do={
-                # update ip in file
                 /file set noip.txt contents=$IP
                 :local url "http://dynupdate.no-ip.com/nic/update\3Fmyip=$currentIP"
                 :local output "No-ip host ip update\n\nold ip : $lastip\nnew ip:$IP\nTime : "
                 :set output ($output ." $[/system clock get date] $[/system clock get time]\n\n")
                 foreach host in=($hosts) do={
-                    # send update to no-ip
                     /tool fetch url=($url . "&hostname=$host") user=$user password=$password mode=http dst-path=("no-ip_ddns_update-" . $host . ".txt")
                     :set output ($output . "Host:" . $host . "\n")
                     log info "updated noip address to: $IP host: $host"
