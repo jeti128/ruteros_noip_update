@@ -16,8 +16,10 @@ copy /src/noip_clean.txt contetnt to new script (/systems script):
     password " no-ip password"
     hosts [:toarray (" host1 "," test.com ")]
     inetinterface " pppoe-out / Ethernet1...10 "
-    mailSend 2
+    mailSend 2 = not / 1 = send
     mailList [:toarray ("","")]
 
-setup Scheduler (On Evenet: /system script run your_script_name ):
+setup new Scheduler:
+
+    On Evenet: /system script run your_script_name
   
