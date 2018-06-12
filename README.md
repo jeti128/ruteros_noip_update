@@ -3,8 +3,7 @@
 script check your interface ip (if you use pppoe use pppoe interface or internet coming Ethernet port user port for interface)  and not same for stored (noip.txt) update to noip
 
 
-setup
------------------------------------------------------------
+##setup
  
  1. pls copy noip.txt to ruter root
  2. copy /src/noip_clean.txt contetnt to new script (/systems script):
