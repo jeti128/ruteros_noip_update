@@ -17,7 +17,7 @@ if you like send mail req mail setup in ruter (help) :
     set user=myuser
     set password=mypassword
 
-copy /src/noip_clean.txt contetnt to new script (/systems script):
+copy /src/noip.txt contetnt to new script (/systems script):
 
     modify your info in script
     user " no-ip user name  "
